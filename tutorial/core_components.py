@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State, Event
-from pandas_datareader import data as web
-import core_component_examples as examples
-from datetime import datetime as dt
-import plotly.graph_objs as go
-import json
-import styles
+from tutorial import styles
+from textwrap import dedent as s
 
-import tools
-from utils.component_block import ComponentBlock
+from tutorial import tools
+from tutorial.utils.component_block import ComponentBlock
 
-from server import app
 
 examples = {
-    'button': tools.load_example('tutorial/examples/core_components/button.py')
+    'button': tools.load_example('tutorial/examples/core_components/button.py'),
+    'tabs': tools.load_example('tutorial/examples/core_components/tabs_callback.py')
 }
 
 
@@ -328,37 +323,21 @@ dcc.DatePickerRange(
     '''.replace('    ', '')),
 
     html.H3('Tabs'),
-    dcc.Markdown('''
+    dcc.Markdown(s('''
+    The Tabs and Tab components can be used to create tabbed sections in your app.
+    ''')),
 
-    The `dcc.Tabs` component is currently available in the prerelease
-    channel of the `dash-core-components` package.
-    To try it out, see the tab component
-    [Pull Request on GitHub](https://github.com/plotly/dash-core-components/pull/74).
-    '''.replace('    ', '')),
-
-    html.A(
-        className="image-link",
-        href="https://github.com/plotly/dash-core-components/pull/74",
-        children=html.Img(
-            src="https://user-images.githubusercontent.com/1280389/30461515-0022526c-998d-11e7-8fcc-66ba308c8b38.gif",
-            alt="Dash Vertical Tabs Component"
-        )
+    dcc.SyntaxHighlighter(
+        examples['tabs'][0],
+        customStyle=styles.code_container, language='python'
     ),
 
-    html.A(
-        className="image-link",
-        href="https://github.com/plotly/dash-core-components/pull/74",
-        children=html.Img(
-            src="https://user-images.githubusercontent.com/1280389/30497812-46cc1910-9a22-11e7-8baa-9df0191bc828.png",
-            alt="Dash Horizontal Tabs Component"
-        )
-    ),
+    html.Div(examples['tabs'][1], className='example-container'),
 
-    dcc.Markdown('''
-    [Tab Component Pre-Release](https://github.com/plotly/dash-core-components/pull/74)
+    dcc.Link('More Tabs Examples and Reference',
+             href="/dash-core-components/tabs"),
 
-    ***
-    '''.replace('    ', '')),
+    html.Hr(),
 
     html.H3('Graphs'),
     dcc.Markdown('''
@@ -409,6 +388,55 @@ dcc.Graph(
 
     html.Br(),
     dcc.Markdown('View the [plotly.py docs](https://plot.ly/python).'),
+
+    dcc.Markdown('***'),
+
+    html.H3(dcc.Link('ConfirmDialog', href='/dash-core-components/confirm')),
+
+    dcc.Markdown('''
+The `dcc.ConfirmDialog` component send a dialog to the browser 
+asking the user to confirm or cancel with a custom message.
+    '''),
+
+    ComponentBlock('''
+import dash_core_components as dcc
+
+confirm = dcc.ConfirmDialog(
+    id='confirm',
+    message='Danger danger! Are you sure you want to continue?'
+)
+    '''),
+
+    html.Br(),
+
+    dcc.Link('More ConfirmDialog Examples and Reference',
+             href='/dash-core-components/confirm'),
+
+    html.Br(),
+    dcc.Markdown('***'),
+
+    dcc.Markdown('There is also a `dcc.ConfirmDialogProvider`,'
+                 ' it will automatically wrap a child component '
+                 ' to send a `dcc.ConfirmDialog` when clicked.'),
+
+    ComponentBlock('''
+import dash_core_components as dcc
+import dash_html_components as html
+
+confirm = dcc.ConfirmDialogProvider(
+    children=html.Button(
+        'Click Me',
+    ),
+    id='danger-danger',
+    message='Danger danger! Are you sure you want to continue?'
+)
+    '''),
+    html.Br(),
+
+    dcc.Link('More ConfirmDialogProvider Examples and Reference',
+             href='/dash-core-components/confirm-provider'),
+
+    html.Br(),
 
     html.Div(id='hidden', style={'display': 'none'})
 ])

@@ -1,25 +1,26 @@
-import auth
-import core_component_examples as examples
-import core_components
-import deployment
-import external_css_and_js
-import gallery
-import getting_started_part_1
-import getting_started_part_2
-import graphing
-import html_components
-import installation
-import introduction
-import live_updates
-import on_premise_deployment
-import performance
-import plugins
-import search
-import sharing_state
-import state
-import support
-import urls
-import react_for_python
+from tutorial import auth
+from tutorial import core_component_examples as examples
+from tutorial import core_components
+from tutorial import dash_deployment_server
+from tutorial import dash_deployment_server_examples as dds_examples
+from tutorial import deployment
+from tutorial import external_css_and_js
+from tutorial import gallery
+from tutorial import getting_started_part_1
+from tutorial import getting_started_part_2
+from tutorial import graphing
+from tutorial import html_components
+from tutorial import installation
+from tutorial import introduction
+from tutorial import live_updates
+from tutorial import performance
+from tutorial import plugins
+from tutorial import search
+from tutorial import sharing_state
+from tutorial import state
+from tutorial import support
+from tutorial import urls
+from tutorial import react_for_python
 
 # The chapters dict is used to generate the dash-docs search index
 # If edited, update the search index by running `python dash_search_index.py`
@@ -156,13 +157,13 @@ chapters = {
     'external': {
         'url': '/external-resources',
         'content': external_css_and_js.layout,
-        'name': 'External CSS and JS',
-        'description': 'By default, Dash loads CSS and JS assets from a ' \
-                       'fast, global CDN - but you can optionally these ' \
-                       'resources locally, making your apps completely self ' \
-                       'contained (no internet access required!). Also, ' \
-                       'learn how to append your own CSS styleseets or JS ' \
-                       'scripts to your apps.'
+        'name': 'Adding CSS & JS and Overriding the Page-Load Template',
+        'description': '''
+            New in dash v0.22.0! Learn how to add custom CSS and JS to your
+            application with the `assets` directory. Also, learn how to
+            customize the HTML template that Dash serves on page load in order
+            to add custom meta tags, customize the page's title, and more.
+        '''
     },
 
     'urls': {
@@ -193,19 +194,28 @@ chapters = {
                        'app to a server'
     },
 
-    'deployment-onpremise': {
-        'url': '/deployment/on-premise',
-        'content': on_premise_deployment.layout,
-        'name': 'Deploying Dash Apps on Plotly On-Premises',
-        'description': "Plotly On-Premises is Plotly's commercial " \
-                       "offering for hosting and sharing Dash apps."
+    # 'deployment-onpremise': {
+    #     'url': '/deployment/on-premise',
+    #     'content': on_premise_deployment.layout,
+    #     'name': 'Deploying Dash Apps on Plotly Enterprise',
+    #     'description': "Plotly Enterprise is Plotly's commercial " \
+    #                    "offering for hosting and sharing Dash apps."
+    # },
+
+    'dash-deployment-server': {
+        'url': '/dash-deployment-server',
+        'content': dash_deployment_server.layout,
+        'name': 'Dash Deployment Server Documentation',
+        'description': "Dash Deployment Server is Plotly's commercial " \
+                       "offering for hosting and sharing Dash Apps with " \
+                       "Plotly Enterprise."
     },
 
     'support': {
         'url': '/support',
         'content': support.layout,
         'name': 'Support and Contact',
-        'description': 'More information for Dash demos, On-Premise trials, ' \
+        'description': 'More information for Dash demos, Enterprise trials, ' \
                        'Dash workshops, sponsored feature requests and ' \
                        'customizations.'
     },
@@ -218,6 +228,7 @@ chapters = {
     },
     ### End of home.py ###
 
+### Start Components ###
     'dropdown-examples': {
         'url': '/dash-core-components/dropdown',
         'content': examples.Dropdown,
@@ -288,6 +299,13 @@ chapters = {
         'description': 'Link examples, properties, and reference.'
     },
 
+    'tabs-example': {
+        'url': '/dash-core-components/tabs',
+        'content': examples.Tabs,
+        'name': 'Tabs & Tab Component',
+        'description': 'Tabs examples, properties, and reference.'
+    },
+
     'textarea-examples': {
         'url': '/dash-core-components/textarea',
         'content': examples.Textarea,
@@ -301,6 +319,122 @@ chapters = {
         'name': 'Upload Component',
         'description': 'Upload examples, properties, and reference.'
     },
+### End Components ###
+
+### Start Dash Deployment Server ###
+    'ssh-examples': {
+        'url': '/dash-deployment-server/ssh',
+        'content': dds_examples.Ssh,
+        'name': 'Authenticating to Dash Deployment Server with SSH',
+        'description': "There are two methods to deploy Dash Apps: HTTPS and SSH "
+        "and we recommend getting started with the HTTPS method."
+    },
+
+    'initialize-examples': {
+        'url': '/dash-deployment-server/initialize',
+        'content': dds_examples.Initialize,
+        'name': 'Part 1. Initialize Dash Apps on Dash Deployment Server',
+        'description': 'Initialize Dash Apps on Plotly Enterprise'
+    },
+
+    'requirements-examples': {
+        'url': '/dash-deployment-server/application-structure',
+        'content': dds_examples.Requirements,
+        'name': 'Application Structure',
+        'description': 'Ensure that your app meets all the requirements for deployment.'
+    },
+
+    'create-deploy-examples': {
+        'url': '/dash-deployment-server/deployment',
+        'content': dds_examples.Deploy,
+        'name': 'Part 2. Deploy Dash Apps on Dash Deployment Server',
+        'description': 'Deploy Dash Apps on Dash Deployment Server'
+    },
+
+    'app-auth-examples': {
+        'url': '/dash-deployment-server/app-authentication',
+        'content': dds_examples.Authentication,
+        'name': 'Dash App Authentication',
+        'description': 'Adding Authentication to your Dash App'
+    },
+
+    'config-sys-examples': {
+        'url': '/dash-deployment-server/configure-system-dependencies',
+        'content': dds_examples.ConfigSys,
+        'name': 'Configuring System Dependencie',
+        'description': 'Install and configure system dependencies such '
+        'as database drivers or the Java JRE environment.'
+    },
+
+    'redis-examples': {
+        'url': '/dash-deployment-server/redis-database',
+        'content': dds_examples.Redis,
+        'name': 'Linking a Redis Database',
+        'description': 'Create and link an in-memory database to your Dash Apps.'
+    },
+
+    'celery-examples': {
+        'url': '/dash-deployment-server/celery-process',
+        'content': dds_examples.Celery,
+        'name': 'Linking a Celery Process',
+        'description': 'Add a task queue to your Dash Apps.'
+    },
+
+    'env-var-examples': {
+        'url': '/dash-deployment-server/enviornment-variables',
+        'content': dds_examples.EnvVars,
+        'name': 'Setting Enviornment Variables',
+        'description': 'Environment variables are commonly used to store '
+        'secret variables like database passwords.'
+    },
+
+    'local-dir-examples': {
+        'url': '/dash-deployment-server/map-local-directories',
+        'content': dds_examples.LocalDir,
+        'name': 'Mapping Local Directories',
+        'description': 'Directory mappings allow you to make directories '
+        'on the Dash Deployment Server available to your app.'
+    },
+
+    'stage-examples': {
+        'url': '/dash-deployment-server/staging-app',
+        'content': dds_examples.StagingApp,
+        'name': 'Create a Staging Dash App ',
+        'description': 'Use a staged Dash App to test changes before updating '
+        'your prodcution Dash App.'
+    },
+
+    'troubleshooting-examples': {
+        'url': '/dash-deployment-server/troubleshooting',
+        'content': dds_examples.Troubleshooting,
+        'name': 'Common Errors',
+        'description': 'Common errors when deploying Dash Apps.'
+    },
+
+    'analytics-examples': {
+        'url': '/dash-deployment-server/analytics',
+        'content': dds_examples.Analytics,
+        'name': 'App Analytics',
+        'description': 'View app analytics such as last updated, '
+        'CPU usage, Memory Usage, and more.'
+    },
+
+    'logs-examples': {
+        'url': '/dash-deployment-server/logs',
+        'content': dds_examples.Logs,
+        'name': 'App Logs',
+        'description': """Check your Dash App's logs via the Dash
+        Deployment Server UI or via the command line."""
+    },
+
+    'support-examples': {
+        'url': '/dash-deployment-server/support',
+        'content': dds_examples.Support,
+        'name': 'Support',
+        'description': 'Having trouble deploying your app? Our dedicated '
+        'support team is available to help you out.'
+    },
+### End Dash Deployment Server ###
 
     'search': {
         'url': '/search',
@@ -308,4 +442,18 @@ chapters = {
         'name': '',
         'description': 'Search the Dash Docs'
     },
+
+    'confirm-examples': {
+        'url': '/dash-core-components/confirm',
+        'content': examples.ConfirmDialog,
+        'name': 'ConfirmDialog Component',
+        'description': 'ConfirmDialog examples, properties, and reference'
+    },
+
+    'confirm-provider-examples': {
+        'url': '/dash-core-components/confirm-provider',
+        'content': examples.ConfirmDialogProvider,
+        'name': 'ConfirmDialogProvider Component',
+        'description': 'ConfirmDialogProvider examples, properties and reference'
+    }
 }

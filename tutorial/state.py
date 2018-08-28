@@ -2,8 +2,8 @@ from textwrap import dedent as s
 import dash_core_components as dcc
 import dash_html_components as html
 
-from components import Example, Syntax
-import tools
+from tutorial.components import Example, Syntax
+from tutorial import tools
 
 examples = {
     'basic-input': tools.load_example('tutorial/examples/basic-input.py'),
@@ -12,6 +12,14 @@ examples = {
 
 layout = html.Div([
     html.H1('Dash State'),
+
+    dcc.Markdown(s('''
+        > This is the *4th* chapter of the [Dash Tutorial](/).
+        > The [previous chapter](/getting-started-part-2) covered Dash Callbacks
+        > and the [next chapter](/interactive-graphing) covers interactive
+        > Just getting started? Make sure to
+        > [install the necessary dependencies](/installation).
+    ''')),
 
     dcc.Markdown(s('''
         In the previous chapter on
@@ -46,5 +54,19 @@ layout = html.Div([
         clicked on. It is available in every component in the
         `dash_html_components` library.
 
-    '''))
+    ''')),
+
+    dcc.Markdown('''
+    ***
+
+    The next chapter of the user guide explains how to use callbacks
+    principles with the `dash_core_components.Graph` component
+    to make applications that
+    respond to interactions with graphs on the page.
+    '''.replace('    ', '')),
+
+    dcc.Link(
+        'Dash Tutorial Part 5. Interactive Graphing',
+        href='/interactive-graphing'),
+
 ])

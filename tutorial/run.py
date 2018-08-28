@@ -1,26 +1,13 @@
-import time
-import six
-import os
-from datetime import datetime as dt
-
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_table_experiments as dt
 
-from dash.dependencies import Input, State, Event, Output
+from dash.dependencies import Input, Output
 
-from server import app, server
+from tutorial.server import app, server
 
-import architecture
-import authentication
-import basic_callbacks
-import callbacks_with_dependencies
-import changelog
-import chapter_index
-import dynamic_content
-import home
-import html_component_appendix
-import open_problems
+from tutorial import chapter_index
+from tutorial import home
 
 css = [
     'https://cdn.rawgit.com/plotly/dash-app-stylesheets/8485c028c19c393e9ab85e1a4fafd78c489609c2/dash-docs-base.css',
@@ -67,7 +54,6 @@ header = html.Div(
 
             html.Div(className='links', children=[
                 html.A('pricing', className='link', href='https://plot.ly/dash/pricing'),
-                html.A('workshops', className='link', href='https://plotcon.plot.ly/'),
                 html.A('user guide', className='link active', href='/'),
                 html.A('plotly', className='link', href='https://plot.ly/'),
                 html.A(children=[html.I(className="fa fa-search")], className='link', href='/search')
@@ -115,12 +101,21 @@ def display_content(pathname):
                if chapters[c]['url'] == pathname]
 
     if matched and matched[0] != 'index':
-        content = html.Div([
-            html.Div(chapters[matched[0]]['content']),
-            html.Hr(),
-            dcc.Link(html.A('Back to the Table of Contents'), href='/'),
-            html.Div(id='wait-for-page-{}'.format(pathname)),
-        ])
+        if 'dash-deployment-server/' not in pathname:
+            content = html.Div([
+                html.Div(chapters[matched[0]]['content']),
+                html.Hr(),
+                dcc.Link(html.A('Back to the Table of Contents'), href='/'),
+                html.Div(id='wait-for-page-{}'.format(pathname)),
+            ])
+        else:
+            content = html.Div([
+                html.Div(chapters[matched[0]]['content']),
+                html.Hr(),
+                dcc.Link(html.A('Back to Dash Deployment Server Documentation'), href='/dash-deployment-server'),
+                html.Div(id='wait-for-page-{}'.format(pathname)),
+            ])
+
     else:
         content = chapters['index']['content']
 
@@ -129,6 +124,35 @@ def display_content(pathname):
 
 app.css.append_css({'external_url': css})
 app.scripts.append_script({'external_url': js})
+
+
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+        <!-- Global site tag (gtag.js) - AdWords: 1009791370 -->
+        <script async src=""https://www.googletagmanager.com/gtag/js?id=AW-1009791370""></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'AW-1009791370');
+        </script>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+        </footer>
+    </body>
+</html>
+'''
 
 if __name__ == '__main__':
     app.run_server(debug=True, threaded=True, port=8050)

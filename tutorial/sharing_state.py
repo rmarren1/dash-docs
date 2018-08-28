@@ -3,8 +3,8 @@ from textwrap import dedent as s
 import dash_core_components as dcc
 import dash_html_components as html
 
-from components import Example, Syntax
-import tools
+from tutorial.components import Example, Syntax
+from tutorial import tools
 
 examples = {
     'filesystem-session-cache': tools.load_example(
@@ -14,9 +14,16 @@ examples = {
 
 
 layout = html.Div([
-    html.H1('Sharing State Between Callbacks'),
-
     dcc.Markdown(s('''
+    # Sharing State Between Callbacks
+
+    > This is the *6th* and final chapter of the essential [Dash Tutorial](/).
+    > The [previous chapter](/interactive-graphing) covered how to use callbacks
+    > with the `dash_core_components.Graph` component.
+    > The [rest of the Dash documentation](/) covers other topics like multi-page
+    > apps and component libraries.
+    > Just getting started? Make sure to [install the necessary dependencies](/installation).
+
     One of the core Dash principles explained in the
     [Getting Started Guide on Callbacks](/getting-started-part-2)
     is that **Dash Callbacks must never modify variables outside of their
@@ -491,7 +498,6 @@ def update_output_1(value):
         using that session id. In this method, since data is saved on the server,
         instead of transported over the network, it is generally faster than the
         "hidden div" method.
-
 
         This example was originally discussed in a
         [Dash Community Forum thread](https://community.plot.ly/t/capture-window-tab-closing-event/7375/2?u=chriddyp).
