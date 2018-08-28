@@ -6,7 +6,7 @@ import dash_html_components as html
 
 import plotly
 
-from tutorial import styles
+import styles
 
 layout = html.Div([
 
@@ -32,8 +32,8 @@ layout = html.Div([
     ), customStyle=styles.code_container),
 
     html.Div([
-        'Ready? Now, let\'s ',
-        dcc.Link('make your first Dash app', href='/getting-started'),
+        'Ready? Now, get started with the ',
+        dcc.Link('Dash Tutorial - Part 1', href='/getting-started'),
         '.'
     ])
 

@@ -9,18 +9,23 @@ developed and maintained by [Plotly](https://plot.ly).
 
 ### Dash Demos and Enterprise Trials
 
-If you would like to trial or purchase a Dash Deployment Server,
+If you would like to trial or purchase a Dash On-Premises server,
 [get in touch with us directly](https://plotly.typeform.com/to/rkO85m).
 
 Our sales engineering team is happy to give you or your team
-a demo of Dash and Dash Deployment Server too.
+a demo of Dash and Dash On-Premises too.
 
 ### Dash Workshops
 
-We lead [two day Dash workshops](https://plotcon.plot.ly) every few months.
-These frequently sell out, so [please register early](https://plotcon.plot.ly)
+We will be leading a [two day Dash workshop](https://plotcon.plot.ly/) at
+Plotly Headquarters this February!
+The workshop will start with the foundations and guiding principles of Dash
+and move into advanced Dash practices with plenty of time for individual
+questions. You can register for the workshop and see more information at:
+[https://plotcon.plot.ly/](https://plotcon.plot.ly/).
 
-These workshops are lead by the authors of Dash and are tailored towards both beginners and experts.
+Last Fall's workshops sold out, so if you are interested,
+[register soon](https://plotcon.plot.ly/)!
 
 ### Sponsored Feature Requests and Customizations
 

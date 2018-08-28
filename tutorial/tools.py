@@ -1,4 +1,4 @@
-from tutorial.server import app
+from server import app
 
 
 def load_example(path):
@@ -7,7 +7,7 @@ def load_example(path):
         _example = _source
 
         # Use the global app assignment
-        if 'app = dash.Dash' not in _example and 'app = CustomDash()' not in _example:
+        if 'app = dash.Dash' not in _example:
             raise Exception("Didn't declare app")
         _example = _example.replace('app = dash.Dash', '# app = dash.Dash')
 
@@ -63,8 +63,3 @@ def merge(*dict_args):
     for dictionary in dict_args:
         result.update(dictionary)
     return result
-
-
-def read_file(fn):
-    with open(fn, 'r') as f:
-        return f.read()
