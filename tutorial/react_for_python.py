@@ -35,7 +35,7 @@ layout = html.Div([dcc.Markdown('''
   mostly just simple wrappers around existing React components. This means the entire React ecosystem is potentially usable in a Dash application!
 
   ## Installing everything you need
-  Let's start by setting up our JavaScript development environment. We will use Node.js, NPM, and `create-react-app` to write our first React
+  Let's start by setting up our JavaScript development environment. We will use Node.js, NPM, and our `dash-component-boilerplate` to write our first React
   application. Node.js is a JavaScript runtime, which allows you to run JavaScript code outside of the browser. Just like you would run 
   `python my-code.py` to run Python code in a terminal, you'd run `node my-code.js` to run JavaScript code in a terminal. 
   Node comes in very handy when developing, even when you intend to run the code in the browser.
@@ -44,35 +44,33 @@ layout = html.Div([dcc.Markdown('''
   With Node we can take advantage of the extensive tooling, provided by NPM, which stands for Node Package Manager. Besides being a package manager 
   (not unlike `pip` for Python), `npm` also allows you to do other stuff like run scripts and perform tasks, such as creating a project for you by running `npm init`, starting up a project by running `npm start`, or firing custom scripts by running `npm run custom-script`. These scripts are defined in a `package.json` file, which every project that uses `npm` has. The `package.json` file holds your `requirements` and `devRequirements`, which can be installed using `npm install`, the same way `pip` has a `requirements.txt` option you can use in `pip install -r requirements.txt`. `package.json` also holds a `scripts` section, where custom scripts can be defined. It is usually a good idea to check out a new project's `package.json` file, to see what kind of scripts you can run!
 
-  A great tool we can use is `create-react-app`, built by the core team behind React. This tool allows you to very easily set up a new React project. 
-  It sets up your `package.json` file for you, with custom scripts for running a development server, watching & hot-reloading your code (so you see changes you've made instantly), and creates some boilerplate React code for you to get you started. It even sets up something called `webpack` for you, which bundles all your files together into one neat package, specifically made for the web!
+  If you go to the [dash-component-boilerplate repo](https://github.com/plotly/dash-component-boilerplate), you'll find the instructions to need to set up some React boilerplate code
+  that helps you quickly get up a React development environment, complete with the scripts we need to finally build our React component for Dash. It also sets up Babel, a transpiler for React so that we can write JSX, and Webpack, a tool
+  that bundles all of our code into one `bundle.js` file, optimized for speed.
 
   - To install Node.js, go to [the Node.js website](https://nodejs.org/en/) to download the latest version. 
   - Node.js will automatically install the Node Package Manager `npm` on your machine
   - Verify that node is installed by running: `node -v`
   - Verify that npm is installed by running: `npm -v`
 
-  Now that we have Node.js up and running, we'll go ahead and initialize a new project using `create-react-app` by running:
-  - `npm init react-app my-app`
-  *Note that you need to have `npm` version 6+ for the `npm init` command to work - if you have a version below that, the command `npx create-react-app my-app` should also work!*
-
-  This sets up and installs everything you need for a React application! After it's done running, it will give you some instructions on how to start your app, most likely it will tell you to run `yarn start`. Yarn is another JavaScript package manager, which you can also use
-  instead of NPM. It's up to you - either `npm start` or `yarn start` will work!
+  Now that we have Node.js up and running, go ahead and follow the instructions on the [dash-component-boilerplate repo](https://github.com/plotly/dash-component-boilerplate) to set up your component.
 
   ## Quick intro to React
 
-  Now, let's go ahead and see what the code for our new React application looks like. Open up your favourite code editor, and open the `src/App.js` file.
-  This is your first React component! In React, most of the code you write will reside in some sort of a component. This is the top-level component, apptly named `App`, which job it is to basically be the entry point of the app. Here you will render all other components that you want to be displayed. Try changing the 
-  "Welcome to React" text to "Welcome to Dash", and save it. Now, go back to the browser, and notice how it hot-reloads the page!
+  Now, let's go ahead and see what the code for our new React application looks like. Open up your favourite code editor, and open the `src/lib/components/ExampleComponent.react.js` file.
+  This is our first React component! In React, most of the code you write will reside in some sort of a component. This component is being called in `src/demo/App.js`, which is the top-level component, apptly named `App`. It's job is to basically be the entry point of the app.
+  Here you will render all other components that you want to be displayed. Try making some changes to both the top-level `App` component, and the `ExampleComponent`, like adding a `<h1>Hello, Dash!</h1>` in between the `<div></div>` tags, and notice how the page hot-reloads on changes!
 
   #### JSX
-  You probably already noticed that the text you changed was wrapped in a `<h1>` tag. It looks like HTML, but slightly different! What gives? This is
+  The `<h1>` and `<div>` tags you see look exactly like HTML tags, however, they are slightly different! These tags are   
   what is called JSX - a syntax extension to JavaScript developed by the React team to have easy, inline, HTML-like markup in your JavaScript components. It is mostly exactly the same as regular HTML. The main difference lies in the naming of attributes - `class` (for appending a CSS class to an HTML tag) is
-  named `className` here, as to avoid confusion with the actual `class` keyword in JavaScript (yes, JavaScript has classes, just like in Python!). React doesn't require you to use JSX, but most people find it helpful as a visual aid when working with UI inside the JavaScript code. To learn more about how JSX works and why people use it, read the [documentation here!](https://reactjs.org/docs/introducing-jsx)
+  named `className` here, as to avoid confusion with the actual `class` keyword in JavaScript (yes, JavaScript has classes, just like in Python!). Under the hood, React will call `React.createElement('h1')` for our `<h1>` JSX tags. React doesn't require you to use JSX, 
+  but most people find it helpful as a visual aid when working with UI inside JavaScript. 
+  To learn more about how JSX works and why people use it, read the [documentation here!](https://reactjs.org/docs/introducing-jsx)
 
 
   #### Virtual DOM
-  If we look at the `App` component again, we see that it is `export`ed at the bottom, and if you open up the `src/index.js` file you can see that it's imported there, so it can be used in a call to `ReactDOM.render()`. 
+  If we look at the `App` component again, we see that it is `export`ed at the bottom, and if you open up the `src/demo/index.js` file you can see that it's imported there, so it can be used in a call to `ReactDOM.render()`. 
   This `ReactDOM.render()` method is only called here, and only once. All it does is render our `App` component in a `div` element with the `id` of `root`. React handles all of the rendering of 
   components internally, using a very smart system called the Virtual DOM. It does this so it can update DOM nodes internally in the most efficient and fast way, meaning we
   only have to concentrate on declaring how we want things to look like, and how we want things to behave! 
@@ -316,8 +314,7 @@ layout = html.Div([dcc.Markdown('''
   export default TextInput;
 ```
 
-Note that if you run this example above in our `create-react-app`, `setProps` is not defined - because we're not running this from Dash yet. Dash will make sure the `setProps` prop is
-defined, by injecting it in our component when it passes it to `dash-renderer`. The `setProps` method *lifts up* the state from being handled *in the React component itself* (via `setState`) to being handled *from within your Dash application*. This means that if we use `setProps` in our React component, the
+Note that if you run this example above in the demo provided by `dash-component-boilerplate`, `setProps` is defined in `demo/App.js`. In Dash however, `setProps` will be injected in our component by Dash, when it passes it to `dash-renderer`. The `setProps` method *lifts up* the state from being handled *in the React component itself* (via `setState`) to being handled *from within your Dash application*. This means that if we use `setProps` in our React component, the
 values passed into `setProps` are also being updated inside Dash. This is very useful if you want users of your component to be able to change the props of your component from within Dash.
 '''),
 
@@ -342,50 +339,49 @@ html.Img(
     }),
 
 dcc.Markdown('''
-When developing, we're usually not running our Dash application - we're running our component somewhere else, in our case, we're running it with the tools provided by `create-react-app`. This means we do not have the `setProps` method available to play with, but we can easily define it ourselves, so we have something to work with:
+When developing, we're usually not running our Dash application - we're running our component somewhere else, in our case, we're running it in the demo app in `dash-component-boilerplate`, `src/demo/App.js`. 
 
 ```
-import React, { Component } from "react";
-import TextInput from "./TextInput";
-import logo from "./logo.svg";
-import "./App.css";
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import * as R from 'ramda';
+
+import {ExampleComponent} from '../lib';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: "App/dash-renderer provided props!"
-    };
-  }
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <TextInput
-          label="dash-input"
-          value={this.state.value}
-          setProps={(newProps) => {
-            this.setState(newProps);
-          }}
-        />
-      </div>
-    );
-  }
+
+    constructor() {
+        super();
+        this.state = {
+            value: ''
+        }
+        this.setProps = this.setProps.bind(this);
+    }
+
+    setProps(newProps) {
+        this.setState(newProps);
+    }
+
+    render() {
+        return (
+            <div>
+              <TextInput
+                label="dash-input"
+                value={this.state.value}
+                setProps={this.setProps}
+              />
+            </div>
+        )
+    }
 }
 
 export default App;
 ```
 
-We set `setProps` here to be a new function (an arrow function, read about them [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)) that calls
-`setState()` with the new props provided by `setProps`. We also set the `value` of our `TextInput` component to be equal to `this.state.value`. Note that this is simply a work-around for not having the `setProps` method available (because Dash provides that method for us, and we're not yet running our component in Dash - we're using `create-react-app` to run our component).
+We pass `setProps` here to our component so that it can use it (this is what is called "prop drilling" - passing props around to allow children components to use them). We also set the `value` of our `TextInput` component to be equal to `this.state.value`. 
 
-We will talk about how to convert this React component into a component that Dash can use in the next section! (Coming soon)
+If all is well, and you're happy with your component, the next step is building our component for Dash, and using it in an actual Dash app. Luckily, the `dash-component-boilerplate` project provides the scripts for us that we need to build our component.
+Please check out the [dash-component-boilerplate repo](https://github.com/plotly/dash-component-boilerplate) again, and follow the steps required for building.
 
 ''')
 ])
